@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:secure_app_switcher/secure_app_switcher.dart';
+import 'package:fox_secure_switcher/fox_secure_switcher.dart';
 
 /// RouteObserver for screen widgets.
 ///
@@ -13,7 +13,8 @@ final RouteObserver<PageRoute<dynamic>> secureAppSwitcherRouteObserver =
 ///
 /// [secureAppSwitcherRouteObserver] must be set to navigatorObservers.
 ///
-/// It has MaterialPageRoute as its parent and wraps the screen widget with [SecureAppSwitcherPage].
+/// It has MaterialPageRoute as its parent and wraps
+/// the screen widget with [SecureAppSwitcherPage].
 /// For iOS, a mask style can be specified.
 ///
 /// ```dart
@@ -22,12 +23,12 @@ final RouteObserver<PageRoute<dynamic>> secureAppSwitcherRouteObserver =
 ///     style: SecureMaskStyle.blurLight,
 ///     child: ScreenA(),
 ///   );
-/// )
+/// })
 /// ```
 class SecureAppSwitcherPage extends StatefulWidget {
   const SecureAppSwitcherPage({
-    super.key,
     required this.child,
+    super.key,
     this.style = SecureMaskStyle.light,
   });
 

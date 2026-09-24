@@ -1,6 +1,22 @@
-# secure_app_switcher
+# Fox Secure App Switcher for Flutter
+
+[![License: MIT][license_badge]][license_link]
 
 Apply a safe masking effect to the app screen on the app switcher or task list.
+
+## Updated fork
+
+This project is a modern, maintained fork of the original
+[`secure_app_switcher`](https://github.com/arkwycr/secure_app_switcher) project.
+It keeps the existing Dart API while updating the native implementations and
+tooling for current Flutter releases, including Android built-in Kotlin and
+iOS Swift Package Manager support.
+
+The canonical repository for this fork is
+[`vedla/fox_secure_switcher`](https://gitlab.com/vedla/fox_secure_switcher).
+
+The package is published as `fox_secure_switcher`; the existing Dart API names
+remain unchanged for source compatibility.
 
 Functions can be enabled/disabled within any process. It also provides a mechanism for switching functions on a screen-by-screen basis.
 
@@ -11,7 +27,7 @@ The effect is different for iOS and Android.
 ### Use functions within arbitrary processing
 
 ```dart
-import 'package:secure_app_switcher/secure_app_switcher.dart';
+import 'package:fox_secure_switcher/fox_secure_switcher.dart';
 
 // ON
 SecureAppSwitcher.on();
@@ -50,7 +66,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case "/":
       return MaterialPageRoute(builder: (context) {
         return const HomeScreen();
-      });    
+      });
     case "/screenA":
       return MaterialPageRoute(builder: (context) {
         return const SecureAppSwitcherPage( // add
@@ -92,4 +108,8 @@ SecureAppSwitcher.on(iosStyle: SecureMaskStyle.blurLight);
 
 ## Features and bugs
 
-Please file feature requests and bugs on the [issue tracker](https://github.com/arkwycr/secure_app_switcher/issues).
+Please file feature requests and bugs on the [issue tracker](https://gitlab.com/vedla/fox_secure_switcher/issues).
+
+[license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
+[license_link]: https://opensource.org/licenses/MIT
+[status_badge]: https://img.shields.io/badge/status-early%20development-yellow.svg

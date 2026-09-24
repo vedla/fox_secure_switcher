@@ -2,14 +2,13 @@ import Flutter
 import UIKit
 
 public class SecureAppSwitcherPlugin: NSObject, FlutterPlugin {
-
   private var secureView: UIView?
 
   private enum SecureMaskStyle: Int {
-      case light = 0
-      case dark = 1
-      case blurLight = 2
-      case blurDark = 3
+    case light = 0
+    case dark = 1
+    case blurLight = 2
+    case blurDark = 3
   }
 
   private func createSecureView(styleIdx: Int? = nil) {
@@ -30,7 +29,10 @@ public class SecureAppSwitcherPlugin: NSObject, FlutterPlugin {
   }
 
   public static func register(with registrar: FlutterPluginRegistrar) {
-    let channel = FlutterMethodChannel(name: "secure_app_switcher", binaryMessenger: registrar.messenger())
+    let channel = FlutterMethodChannel(
+      name: "secure_app_switcher",
+      binaryMessenger: registrar.messenger()
+    )
     let instance = SecureAppSwitcherPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
     registrar.addApplicationDelegate(instance)
@@ -39,7 +41,8 @@ public class SecureAppSwitcherPlugin: NSObject, FlutterPlugin {
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     switch call.method {
     case "on":
-      if let args = call.arguments as? Dictionary<String, Any>, let style = args["style"] as? Int {
+      if let args = call.arguments as? [String: Any],
+         let style = args["style"] as? Int {
         createSecureView(styleIdx: style)
       }
       result(nil)
@@ -53,7 +56,7 @@ public class SecureAppSwitcherPlugin: NSObject, FlutterPlugin {
   }
 
   public func applicationDidBecomeActive(_ application: UIApplication) {
-    self.secureView?.removeFromSuperview()
+    secureView?.removeFromSuperview()
   }
 
   public func applicationWillResignActive(_ application: UIApplication) {

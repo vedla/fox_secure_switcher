@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.arkwycr.secure_app_switcher_example">
    <application
-        android:label="secure_app_switcher_example"
+        android:label="fox_secure_switcher_example"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

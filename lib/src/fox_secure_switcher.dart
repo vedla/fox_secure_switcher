@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/services.dart';
 
 /// Select a screen mask style.
@@ -24,15 +26,14 @@ class SecureAppSwitcher {
   static const _methodChannel = MethodChannel('secure_app_switcher');
 
   /// Enable screen mask.
-  /// For iOS, a mask style can be specified. Default is [SecureMaskStyle.light].
+  /// For iOS, a mask style can be specified.
+  /// Default is [SecureMaskStyle.light].
   static void on({SecureMaskStyle iosStyle = SecureMaskStyle.light}) {
-    _methodChannel.invokeMethod('on', {
-      'style': iosStyle.index,
-    });
+    unawaited(_methodChannel.invokeMethod('on', {'style': iosStyle.index}));
   }
 
   /// Disable screen mask.
   static void off() {
-    _methodChannel.invokeMethod('off');
+    unawaited(_methodChannel.invokeMethod('off'));
   }
 }

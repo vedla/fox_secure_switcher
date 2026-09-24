@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:secure_app_switcher/secure_app_switcher.dart';
+import 'package:fox_secure_switcher/fox_secure_switcher.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,39 +22,51 @@ class MyApp extends StatelessWidget {
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
     case "/":
-      return MaterialPageRoute(builder: (context) {
-        return const HomeScreen();
-      });
+      return MaterialPageRoute(
+        builder: (context) {
+          return const HomeScreen();
+        },
+      );
     case "/screen_a":
-      return MaterialPageRoute(builder: (context) {
-        return const ScreenA();
-      });
+      return MaterialPageRoute(
+        builder: (context) {
+          return const ScreenA();
+        },
+      );
     case "/screen_b":
-      return MaterialPageRoute(builder: (context) {
-        return const SecureAppSwitcherPage(
-          style: SecureMaskStyle.blurLight,
-          child: ScreenB(),
-        );
-      });
+      return MaterialPageRoute(
+        builder: (context) {
+          return const SecureAppSwitcherPage(
+            style: SecureMaskStyle.blurLight,
+            child: ScreenB(),
+          );
+        },
+      );
 
     case "/screen_c":
-      return MaterialPageRoute(builder: (context) {
-        return const SecureAppSwitcherPage(
-          style: SecureMaskStyle.blurDark,
-          child: ScreenC(),
-        );
-      });
+      return MaterialPageRoute(
+        builder: (context) {
+          return const SecureAppSwitcherPage(
+            style: SecureMaskStyle.blurDark,
+            child: ScreenC(),
+          );
+        },
+      );
     case "/screen_d":
-      return MaterialPageRoute(builder: (context) {
-        return const SecureAppSwitcherPage(
-          style: SecureMaskStyle.dark,
-          child: ScreenD(),
-        );
-      });
+      return MaterialPageRoute(
+        builder: (context) {
+          return const SecureAppSwitcherPage(
+            style: SecureMaskStyle.dark,
+            child: ScreenD(),
+          );
+        },
+      );
     default:
-      return MaterialPageRoute(builder: (context) {
-        return const HomeScreen();
-      });
+      return MaterialPageRoute(
+        builder: (context) {
+          return const HomeScreen();
+        },
+      );
   }
 }
 
@@ -73,16 +85,16 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Plugin example app'),
-      ),
+      appBar: AppBar(title: const Text('Plugin example app')),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           spacing: 10,
           children: [
-            Text('Arbitrary Processing',
-                style: Theme.of(context).textTheme.titleLarge),
+            Text(
+              'Arbitrary Processing',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -106,8 +118,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const Divider(),
-            Text('Specific Screens',
-                style: Theme.of(context).textTheme.titleLarge),
+            Text(
+              'Specific Screens',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               spacing: 20,
@@ -145,16 +159,16 @@ class ScreenA extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Screen A'),
-      ),
+      appBar: AppBar(title: const Text('Screen A')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text('SecureAppSwitcher : off',
-                style: Theme.of(context).textTheme.bodyLarge),
+            Text(
+              'SecureAppSwitcher : off',
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pushNamed("/screen_b");
@@ -183,9 +197,7 @@ class ScreenB extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Screen B'),
-      ),
+      appBar: AppBar(title: const Text('Screen B')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -193,10 +205,14 @@ class ScreenB extends StatelessWidget {
           children: [
             Column(
               children: [
-                Text('SecureAppSwitcher : on',
-                    style: Theme.of(context).textTheme.bodyLarge),
-                Text('SecureMaskStyle : blurLight (only iOS)',
-                    style: Theme.of(context).textTheme.bodyLarge),
+                Text(
+                  'SecureAppSwitcher : on',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                Text(
+                  'SecureMaskStyle : blurLight (only iOS)',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
               ],
             ),
             ElevatedButton(
@@ -227,9 +243,7 @@ class ScreenC extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Screen C'),
-      ),
+      appBar: AppBar(title: const Text('Screen C')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -237,10 +251,14 @@ class ScreenC extends StatelessWidget {
           children: [
             Column(
               children: [
-                Text('SecureAppSwitcher : on',
-                    style: Theme.of(context).textTheme.bodyLarge),
-                Text('SecureMaskStyle : blurDark (only iOS)',
-                    style: Theme.of(context).textTheme.bodyLarge),
+                Text(
+                  'SecureAppSwitcher : on',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                Text(
+                  'SecureMaskStyle : blurDark (only iOS)',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
               ],
             ),
             ElevatedButton(
@@ -263,7 +281,7 @@ class ScreenC extends StatelessWidget {
                   const Text('SecureMaskStyle : dark (only iOS)'),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -289,10 +307,14 @@ class ScreenD extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text('SecureAppSwitcher : on',
-                style: Theme.of(context).textTheme.bodyLarge),
-            Text('SecureMaskStyle : dark (only iOS)',
-                style: Theme.of(context).textTheme.bodyLarge),
+            Text(
+              'SecureAppSwitcher : on',
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            Text(
+              'SecureMaskStyle : dark (only iOS)',
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
           ],
         ),
       ),

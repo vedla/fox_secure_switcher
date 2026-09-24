@@ -1,6 +1,6 @@
-# secure_app_switcher_example
+# fox_secure_switcher_example
 
-Demonstrates how to use the secure_app_switcher plugin.
+Demonstrates how to use the fox_secure_switcher plugin.
 
 ## Getting Started
 

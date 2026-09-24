@@ -1,23 +1,21 @@
 #
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html.
-# Run `pod lib lint secure_app_switcher.podspec` to validate before publishing.
+# Run `pod lib lint fox_secure_switcher.podspec` to validate before publishing.
 #
 Pod::Spec.new do |s|
-  s.name             = 'secure_app_switcher'
+  s.name             = 'fox_secure_switcher'
   s.version          = '0.0.1'
-  s.summary          = 'A new Flutter plugin project.'
+  s.summary          = 'A safe screen masking Flutter plugin.'
   s.description      = <<-DESC
-A new Flutter plugin project.
+Apply a safe masking effect to the app screen on the app switcher or task list.
                        DESC
-  s.homepage         = 'http://example.com'
+  s.homepage         = 'https://gitlab.com/vedla/fox_secure_switcher'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'secure_app_switcher/Sources/secure_app_switcher/**/*'
+  s.source_files = 'fox_secure_switcher/Sources/fox_secure_switcher/**/*'
   s.dependency 'Flutter'
   s.platform = :ios, '13.0'
 
-  # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
   s.swift_version = '5.0'
 end

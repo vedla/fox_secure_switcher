@@ -3,14 +3,14 @@
 import PackageDescription
 
 let package = Package(
-    name: "secure_app_switcher",
+    name: "fox_secure_switcher",
     platforms: [
         .iOS(.v13)
     ],
     products: [
         .library(
-            name: "secure-app-switcher",
-            targets: ["secure_app_switcher"]
+            name: "fox-secure-switcher",
+            targets: ["fox_secure_switcher"]
         )
     ],
     dependencies: [
@@ -18,7 +18,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "secure_app_switcher",
+            name: "fox_secure_switcher",
             dependencies: [
                 .product(name: "FlutterFramework", package: "FlutterFramework")
             ]

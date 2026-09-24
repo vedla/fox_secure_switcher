@@ -7,7 +7,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:secure_app_switcher_example/main.dart';
+import 'package:fox_secure_switcher_example/main.dart';
 
 void main() {
   testWidgets('Shows the home screen', (WidgetTester tester) async {
