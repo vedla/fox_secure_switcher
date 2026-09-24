@@ -3,10 +3,10 @@ description: Apply a safe masking effect to the app screen on the app switcher o
 version: 1.0.0
 repository: https://github.com/arkwycr/secure_app_switcher
 issue_tracker: https://github.com/arkwycr/secure_app_switcher/issues
-
+resolution: workspace
 environment:
-  sdk: ^3.5.4
-  flutter: '>=3.4.0'
+  sdk: ^3.12.0
+  flutter: '>=3.44.0'
 
 dependencies:
   flutter:
@@ -26,3 +26,24 @@ flutter:
         pluginClass: SecureAppSwitcherPlugin
       ios:
         pluginClass: SecureAppSwitcherPlugin
+
+workspace:
+  - example
+
+# workspace:
+melos:
+  useRootAsPackage: true
+  scripts:
+    analyze: melos exec -- dart analyze . --fatal-infos
+    build: melos exec -- "dart run build_runner build --delete-conflicting-outputs"
+    fix: melos exec -- dart fix --apply
+    lint: melos exec -- dart analyze . --fatal-infos --fatal-warnings
+    format: melos exec -- dart format .
+    docs: melos exec --dir-exists=lib -- "dart doc ."
+    get: melos exec --flutter --concurrency=1 -- "flutter pub get"
+    outdated: melos exec --flutter --concurrency=1 -- "flutter pub outdated"
+    upgrade: melos exec --flutter --concurrency=1 -- "flutter pub upgrade
+      --major-versions"
+    clean: melos exec --flutter --concurrency=1 -- "flutter clean"
+    sort: melos exec --flutter --concurrency=1 -- "dart run
+      import_order_lint:import_order"

@@ -2,7 +2,6 @@ package com.arkwycr.secure_app_switcher
 
 import android.app.Activity
 import android.view.WindowManager
-import androidx.annotation.NonNull
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -20,7 +19,7 @@ class SecureAppSwitcherPlugin : FlutterPlugin, MethodCallHandler, ActivityAware 
     /// when the Flutter Engine is detached from the Activity
     private lateinit var channel: MethodChannel
 
-    private lateinit var activity: Activity
+    private var activity: Activity? = null
 
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, "secure_app_switcher")
@@ -30,12 +29,22 @@ class SecureAppSwitcherPlugin : FlutterPlugin, MethodCallHandler, ActivityAware 
     override fun onMethodCall(call: MethodCall, result: Result) {
         when (call.method) {
             "on" -> {
-                activity.window.addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                val currentActivity = activity
+                if (currentActivity == null) {
+                    result.error("NO_ACTIVITY", "The plugin is not attached to an activity.", null)
+                    return
+                }
+                currentActivity.window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
                 result.success(null)
             }
 
             "off" -> {
-                activity.window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                val currentActivity = activity
+                if (currentActivity == null) {
+                    result.error("NO_ACTIVITY", "The plugin is not attached to an activity.", null)
+                    return
+                }
+                currentActivity.window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
                 result.success(null)
             }
 
@@ -45,6 +54,7 @@ class SecureAppSwitcherPlugin : FlutterPlugin, MethodCallHandler, ActivityAware 
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)
+        activity = null
     }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
@@ -52,7 +62,7 @@ class SecureAppSwitcherPlugin : FlutterPlugin, MethodCallHandler, ActivityAware 
     }
 
     override fun onDetachedFromActivityForConfigChanges() {
-        // Unimplemented
+        activity = null
     }
 
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
@@ -60,6 +70,6 @@ class SecureAppSwitcherPlugin : FlutterPlugin, MethodCallHandler, ActivityAware 
     }
 
     override fun onDetachedFromActivity() {
-        // Unimplemented
+        activity = null
     }
 }

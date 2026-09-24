@@ -1,10 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:secure_app_switcher/secure_app_switcher.dart';
 
 /// RouteObserver for screen widgets.
 ///
 /// It is used to detect transition events of screen widgets.
-final RouteObserver secureAppSwitcherRouteObserver = RouteObserver();
+final RouteObserver<PageRoute<dynamic>> secureAppSwitcherRouteObserver =
+    RouteObserver<PageRoute<dynamic>>();
 
 /// Screen mask function class for screen widgets.
 ///
@@ -39,7 +42,8 @@ class SecureAppSwitcherPage extends StatefulWidget {
 
 class SecureAppSwitcherPageState extends State<SecureAppSwitcherPage>
     with RouteAware {
-  SecureAppSwitcherPageState();
+  PageRoute<dynamic>? _route;
+  Timer? _reactivationTimer;
 
   @override
   Widget build(BuildContext context) {
@@ -49,39 +53,51 @@ class SecureAppSwitcherPageState extends State<SecureAppSwitcherPage>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    secureAppSwitcherRouteObserver.subscribe(
-        this, ModalRoute.of(context) as PageRoute);
+    final route = ModalRoute.of(context);
+    if (route is PageRoute<dynamic> && route != _route) {
+      if (_route != null) {
+        secureAppSwitcherRouteObserver.unsubscribe(this);
+      }
+      _route = route;
+      secureAppSwitcherRouteObserver.subscribe(this, route);
+    }
   }
 
   @override
   void dispose() {
+    _reactivationTimer?.cancel();
     secureAppSwitcherRouteObserver.unsubscribe(this);
     super.dispose();
   }
 
   @override
   void didPush() {
-    SecureAppSwitcher.on(iosStyle: widget.style);
     super.didPush();
+    SecureAppSwitcher.on(iosStyle: widget.style);
   }
 
   @override
   void didPop() {
-    SecureAppSwitcher.off();
     super.didPop();
+    SecureAppSwitcher.off();
   }
 
   @override
   void didPopNext() {
-    Future.delayed(const Duration(milliseconds: 500)).then((value) {
+    super.didPopNext();
+    _reactivationTimer?.cancel();
+    _reactivationTimer = Timer(const Duration(milliseconds: 500), () {
+      if (!mounted) {
+        return;
+      }
       SecureAppSwitcher.on(iosStyle: widget.style);
     });
-    super.didPopNext();
   }
 
   @override
   void didPushNext() {
-    SecureAppSwitcher.off();
     super.didPushNext();
+    _reactivationTimer?.cancel();
+    SecureAppSwitcher.off();
   }
 }

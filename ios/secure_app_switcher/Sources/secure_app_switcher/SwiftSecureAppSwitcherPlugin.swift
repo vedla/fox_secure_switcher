@@ -2,17 +2,17 @@ import Flutter
 import UIKit
 
 public class SecureAppSwitcherPlugin: NSObject, FlutterPlugin {
-  
-  var secureView: UIView?
-  
-  enum SecureMaskStyle: Int {
+
+  private var secureView: UIView?
+
+  private enum SecureMaskStyle: Int {
       case light = 0
       case dark = 1
       case blurLight = 2
       case blurDark = 3
   }
-  
-  func createSecureView(styleIdx: Int? = nil) {
+
+  private func createSecureView(styleIdx: Int? = nil) {
     switch styleIdx {
     case SecureMaskStyle.light.rawValue:
       secureView = UIView()
@@ -28,7 +28,7 @@ public class SecureAppSwitcherPlugin: NSObject, FlutterPlugin {
       secureView = nil
     }
   }
-  
+
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "secure_app_switcher", binaryMessenger: registrar.messenger())
     let instance = SecureAppSwitcherPlugin()
@@ -51,13 +51,17 @@ public class SecureAppSwitcherPlugin: NSObject, FlutterPlugin {
       result(FlutterMethodNotImplemented)
     }
   }
-  
+
   public func applicationDidBecomeActive(_ application: UIApplication) {
     self.secureView?.removeFromSuperview()
   }
 
   public func applicationWillResignActive(_ application: UIApplication) {
-    if let window = UIApplication.shared.windows.first, let view = secureView {
+    let window = UIApplication.shared.connectedScenes
+      .compactMap { $0 as? UIWindowScene }
+      .flatMap(\.windows)
+      .first { $0.isKeyWindow }
+    if let window, let view = secureView {
       view.frame = window.bounds
       window.addSubview(view)
     }
