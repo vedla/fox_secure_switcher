@@ -1,7 +1,7 @@
 import Flutter
 import UIKit
 
-public class SwiftSecureAppSwitcherPlugin: NSObject, FlutterPlugin {
+public class SecureAppSwitcherPlugin: NSObject, FlutterPlugin {
   
   var secureView: UIView?
   
@@ -31,7 +31,7 @@ public class SwiftSecureAppSwitcherPlugin: NSObject, FlutterPlugin {
   
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "secure_app_switcher", binaryMessenger: registrar.messenger())
-    let instance = SwiftSecureAppSwitcherPlugin()
+    let instance = SecureAppSwitcherPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
     registrar.addApplicationDelegate(instance)
   }
